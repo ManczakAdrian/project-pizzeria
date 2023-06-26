@@ -70,24 +70,22 @@
       /* create element using utils.createElementFromHTML */
       thisProduct.element = utils.createDOMFromHTML(generatedHTML);
       /* find menu container */
-      const menuContainer=document.querySelector(select.containerOf.menu);
+      const menuContainer = document.querySelector(select.containerOf.menu);
 
       /* add element to menu */
       menuContainer.appendChild(thisProduct.element);
 
     }
+    
   }
 
   const app = {
-
-
-
     initMenu: function () {
       const thisApp = this;
       console.log('thisApp.data:', thisApp.data);
 
-      for (let productData in thisApp.data.product) {
-        new Product(productData, thisApp.data.product[productData]);
+      for (let productData in thisApp.data.products) {
+        new Product(productData, thisApp.data.products[productData]);
       }
 
       // const testproduct = new Product();
@@ -109,6 +107,7 @@
 
       thisApp.initData();
       thisApp.initMenu();
+      
     },
   };
 

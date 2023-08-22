@@ -123,10 +123,16 @@
     initData: function () {
       const thisApp = this;
       thisApp.data = dataSource;
+      
     },
-
+    
     init: function () {
       const thisApp = this;
+      
+      for (let productData in thisApp.data.product){
+        new Product(productData, thisApp.data.product[productData]);
+
+      }
       console.log('*** App starting ***');
       console.log('thisApp:', thisApp);
       console.log('classNames:', classNames);
@@ -135,7 +141,7 @@
 
       thisApp.initData();
       thisApp.initMenu();
-
+      
     },
   };
 

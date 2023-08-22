@@ -85,7 +85,7 @@
       /* START: add event listener to clickable trigger on event click */
 
       clickableTrigger.addEventListener('click', function (event) {
-        
+
         /* prevent default action for event */
         event.preventDefault();
 
@@ -98,12 +98,9 @@
         }
 
         /* if there is active product and it's not thisProduct.element, remove class active from it */
-        
+
         /* toggle active class on thisProduct.element */
         thisProduct.element.classList.toggle('active');
-
-
-
       });
     }
   }
@@ -124,13 +121,13 @@
     initData: function () {
       const thisApp = this;
       thisApp.data = dataSource;
-      
+
     },
-    
+
     init: function () {
       const thisApp = this;
-      
-      for (let productData in thisApp.data.product){
+
+      for (let productData in thisApp.data.product) {
         new Product(productData, thisApp.data.product[productData]);
 
       }
@@ -142,7 +139,7 @@
 
       thisApp.initData();
       thisApp.initMenu();
-      
+
     },
   };
 

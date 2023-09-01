@@ -61,9 +61,9 @@
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
-      //thisProduct.initAmountWidget();
+      thisProduct.initAmountWidget();
       thisProduct.processOrder();
-      console.log('new Product:', thisProduct);
+     // console.log('new Product:', thisProduct);
     }
 
     initAmountWidget() {
@@ -76,7 +76,7 @@
 
       /* generate HTML based on template*/
       const generatedHTML = templates.menuProduct(thisProduct.data);
-      console.log(generatedHTML);
+      //console.log(generatedHTML);
 
       /* create element using utils.createElementFromHTML */
       thisProduct.element = utils.createDOMFromHTML(generatedHTML);
@@ -151,7 +151,7 @@
 
 
 
-      console.log('initOrderForm', this.initOrderForm);
+      //console.log('initOrderForm', this.initOrderForm);
     }
 
     processOrder() {
@@ -193,9 +193,7 @@
 
       thisProduct.priceElem.innerHTML = price;
 
-    }
-  
-
+    } 
 }
 
 // console.log(thisProduct);
@@ -206,8 +204,6 @@ class AmountWidget {
     const thisWidget = this;
     thisWidget.getElements(element);
     thisWidget.setValue(thisWidget.input.value);
-
-
 
     console.log('AmountWidget:', thisWidget);
     console.log('constructor arguments:', element);
@@ -237,6 +233,11 @@ class AmountWidget {
   }
 
   initActions() {
+
+    thisWidget.input.addEventListener('click',function(change){
+      change.setValue(input);
+
+    })
 
   }
 }

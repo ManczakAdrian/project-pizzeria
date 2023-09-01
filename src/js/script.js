@@ -204,6 +204,7 @@ class AmountWidget {
     const thisWidget = this;
     thisWidget.getElements(element);
     thisWidget.setValue(thisWidget.input.value);
+    thisWidget.initActions(element);
 
     console.log('AmountWidget:', thisWidget);
     console.log('constructor arguments:', element);
@@ -234,9 +235,17 @@ class AmountWidget {
 
   initActions() {
 
-    thisWidget.input.addEventListener('click',function(change){
-      change.setValue(input);
+    thisWidget.input.addEventListener('change',function(event){
+      event.setValue(input);
 
+    })
+    thisWidget.linkDecrease.addEventListener('click',function(event){
+      event.setValue(thisWidget.value-1);
+
+    })
+
+    thisWidget.linkIncrease.addEventListener('click',function(event){
+      event.setValue(thisWidget.value+1);
     })
 
   }

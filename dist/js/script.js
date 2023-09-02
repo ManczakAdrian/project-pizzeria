@@ -69,6 +69,12 @@
     initAmountWidget() {
       const thisProduct = this;
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+
+      thisProduct.amountWidgetElem('updated', function(event){
+        
+      })
+
+
     }
 
     renderInMenu() {
@@ -190,7 +196,7 @@
         }
 
       }
-
+      price=thisProduct.amountWidget.value;
       thisProduct.priceElem.innerHTML = price;
 
     } 
@@ -231,13 +237,10 @@ class AmountWidget {
       } else {
     console.error('Wartość musi być w zakresie od 0 do 10');
   }
-
-
-    }
-   
-    thisWidget.input.value = thisWidget.value;
+    } 
+   thisWidget.input.value = thisWidget.value;
+   this.announce();
   }
-
 
   initActions() {
     const thisWidget = this;
@@ -252,8 +255,12 @@ class AmountWidget {
     thisWidget.linkIncrease.addEventListener('click',function(event){
       thisWidget.setValue(thisWidget.value+1);
     });
+  }
 
-  
+  announce(){
+    const thisWidget=this;
+    const event= new Event('updated');
+    thisWidget.element.dispatchEvent(event);
   }
 }
 const app = {

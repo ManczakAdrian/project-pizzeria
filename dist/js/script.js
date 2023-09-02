@@ -226,7 +226,7 @@ class AmountWidget {
     if (thisWidget.value !== newValue && !isNaN(newValue)) {
       thisWidget.value = newValue;
       
-      if (value >= 0 && value <= 10) {
+      if (value >= settings.amountWidget.defaultMin && value <= settings.amountWidget.defaultMax) {
         console.log(`Ustawiono wartość na ${value}`);
       } else {
     console.error('Wartość musi być w zakresie od 0 do 10');

@@ -222,32 +222,38 @@ class AmountWidget {
     const thisWidget = this;
     const newValue = parseInt(value);
 
-    if (thisWidget.value !== newValue) {
-      thisWidget.value = newValue;
-    }
+ 
     if (thisWidget.value !== newValue && !isNaN(newValue)) {
       thisWidget.value = newValue;
+      
+      if (value >= 0 && value <= 10) {
+        console.log(`Ustawiono wartość na ${value}`);
+      } else {
+    console.error('Wartość musi być w zakresie od 0 do 10');
+  }
+
 
     }
-    thisWidget.value = newValue;
+   
     thisWidget.input.value = thisWidget.value;
   }
 
+
   initActions() {
-
+    const thisWidget = this;
     thisWidget.input.addEventListener('change',function(event){
-      event.setValue(input);
+      thisWidget.setValue(thisWidget.input.value);
+    });
 
-    })
     thisWidget.linkDecrease.addEventListener('click',function(event){
-      event.setValue(thisWidget.value-1);
-
-    })
+      thisWidget.setValue(thisWidget.value-1);
+    });
 
     thisWidget.linkIncrease.addEventListener('click',function(event){
-      event.setValue(thisWidget.value+1);
-    })
+      thisWidget.setValue(thisWidget.value+1);
+    });
 
+  
   }
 }
 const app = {

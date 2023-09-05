@@ -66,14 +66,15 @@
       // console.log('new Product:', thisProduct);
     }
 
+
     initAmountWidget() {
       const thisProduct = this;
-      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem.addEventListener);
+      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
 
       thisProduct.amountWidgetElem.addEventListener('updated', function (event) {
-
-      })
-
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
 
     }
 
@@ -102,8 +103,7 @@
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
-      thisProduct.amountWidgetElem.addEventListener = thisProduct.element.querySelector(select.menuProduct.amountWidget);
-
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
     }
 
     initAccordion() {
@@ -240,17 +240,17 @@
 
     initActions() {
       const thisWidget = this;
-      thisWidget.input.addEventListener('change', function (event) {
+      thisWidget.input('change', function (event) {
         thisWidget.setValue(thisWidget.input.value);
         
       });
 
-      thisWidget.linkDecrease.addEventListener('click', function (event) {
+      thisWidget.linkDecrease('click', function (event) {
         thisWidget.setValue(thisWidget.value - 1);
         
       });
 
-      thisWidget.linkIncrease.addEventListener('click', function (event) {
+      thisWidget.linkIncrease('click', function (event) {
         thisWidget.setValue(thisWidget.value + 1);
         
       });

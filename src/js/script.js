@@ -209,7 +209,14 @@
     constructor(element) {
       const thisWidget = this;
       thisWidget.getElements(element);
+      if(thisWidget.input.value){
+
       thisWidget.setValue(thisWidget.input.value);
+      }
+      else{
+        thisWidget.setValue(settings.amountWidget.defaultValue);
+      }
+
       thisWidget.initActions(element);
 
       console.log('AmountWidget:', thisWidget);
@@ -240,17 +247,20 @@
 
     initActions() {
       const thisWidget = this;
-      thisWidget.input('change', function (event) {
+      thisWidget.input.addEventListener('change', function (event) {
+        event.preventDefault();
         thisWidget.setValue(thisWidget.input.value);
         
       });
 
-      thisWidget.linkDecrease('click', function (event) {
+      thisWidget.linkDecrease.addEventListener('click', function (event) {
+        event.preventDefault();
         thisWidget.setValue(thisWidget.value - 1);
         
       });
 
-      thisWidget.linkIncrease('click', function (event) {
+      thisWidget.linkIncrease.addEventListener('click', function (event) {
+        event.preventDefault();
         thisWidget.setValue(thisWidget.value + 1);
         
       });

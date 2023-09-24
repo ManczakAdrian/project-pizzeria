@@ -1,5 +1,7 @@
 /* global Handlebars, utils, dataSource */ // eslint-disable-line no-unused-vars
 
+const { name } = require("browser-sync");
+
 {
   'use strict';
 
@@ -100,6 +102,24 @@
       // console.log('new Product:', thisProduct);
     }
 
+    addToCart(){
+      const thisProduct=this;
+      app.cart.add(thisProduct);
+    }
+
+    prepareCartProduct(){
+      const thisProduct=this;
+      productSummary={
+        id:thisProduct=id,
+        name:thisProduct=name,
+        amount:thisProduct=amount,
+        priceSingle=thisProduct.priceSingle,
+        price=price*value,
+        params={}
+      };
+      return
+    }
+
 
     initAmountWidget() {
       const thisProduct = this;
@@ -187,6 +207,7 @@
       thisProduct.cartButton.addEventListener('click', function (event) {
         event.preventDefault();
         thisProduct.processOrder();
+        addToCart();
       });
 
 
@@ -248,6 +269,7 @@
 
       }
       price = thisProduct.amountWidget.value * price;
+      thisProduct.priceSingle=price;
       thisProduct.priceElem.innerHTML = price;
 
     }
@@ -342,6 +364,12 @@
 
     },
 
+    initCart: function(){
+      const thisApp=this;
+      const cartElem=document.querySelector(select.containerOf.cart);
+      thisApp.cart=new Cart(cartElem);
+    },
+
     init: function () {
       const thisApp = this;
 
@@ -354,10 +382,41 @@
 
       thisApp.initData();
       thisApp.initMenu();
+      thisApp.initCart();
 
     },
   };
 
+  class Cart {
+    constructor(element){
+      const thisCart=this;
+      thisCart.products=[];
+      thisCart.getElements(element);
+      initActions();
+      
+      console.log('new Cart', thisCart);
+    }
+    getElements(element){
+      const thisCart=this;
+      thisCart.dom={};
+      thisCart.dom.wrapper=element;
+      thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
+
+      
+    }
+    initActions(){
+      thisCart=this;
+      thisCart.dom.toggleTrigger.addEventListener('click', function(event){
+        event.preventDefault();
+
+      })
+      add(menuproduct){
+        //const thisCart=this;
+        console.log('adding product', menuProduct);
+      }
+
+    }
+  }
   app.init();
 }
 

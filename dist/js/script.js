@@ -104,7 +104,7 @@
 
     addToCart() {
       const thisProduct = this;
-      app.cart.add(thisProduct);
+      app.cart.add(productSummary);
     }
 
     prepareCartProduct() {
@@ -114,8 +114,8 @@
         name: thisProduct.name,
         amount: thisProduct.amount,
         priceSingle: thisProduct.priceSingle,
-        price:price*value,
-        params:{}
+        price: thisProduct.priceSingle * thisProduct.amount,
+        params: {}
       };
       return productSummary;
     }
@@ -206,7 +206,7 @@
       thisProduct.cartButton.addEventListener('click', function (event) {
         event.preventDefault();
         thisProduct.processOrder();
-        addToCart();
+        thisProduct.addToCart();
       });
 
 

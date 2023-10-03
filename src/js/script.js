@@ -111,11 +111,11 @@
       const thisProduct = this;
       const productSummary = {
         id: thisProduct.id,
-        name: thisProduct.name,
-        amount: thisProduct.amount,
+        name: thisProduct.data.name,
+        amount: thisProduct.amountWidget.value,
         priceSingle: thisProduct.priceSingle,
         price: thisProduct.priceSingle * thisProduct.amount,
-        params: {}
+        params: thisProduct.prepareCartProductParams()
       };
       return productSummary;
     }
@@ -157,7 +157,7 @@
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
       thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
-      thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
+
     }
 
     initAccordion() {
@@ -324,7 +324,7 @@
       thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
       thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
       thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
-      }
+    }
     setValue(value) {
       const thisWidget = this;
       const newValue = parseInt(value);
@@ -422,6 +422,7 @@
       thisCart.dom = {};
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
+      thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
 
     }
     initActions() {
@@ -435,7 +436,7 @@
       //const thisCart=this;
       console.log('adding product', menuProduct);
     }
-    
+
 
   }
   app.init();

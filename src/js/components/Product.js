@@ -1,9 +1,6 @@
-import { settings, select } from "./settings.js";
-import Product from "./components/Product.js";
-import Cart from "./components/Cart.js";
-import AmountWidget from "./components/AmountWidget.js";
-import CartProduct from "./Components/CartProduct.js";
-import utils from "../utils.js";
+import {select } from "./settings.js";
+import AmountWidget from "./AmountWidget.js";
+import utils from "./components/utils.js";
 
 class Product {
   constructor(id, data) {

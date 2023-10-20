@@ -1,9 +1,4 @@
 import { settings, select } from "./settings.js";
-import Product from "./components/Product.js";
-import Cart from "./components/Cart.js";
-import AmountWidget from "./components/AmountWidget.js";
-import CartProduct from "./Components/CartProduct.js";
-import utils from "../utils.js";
 
 
 

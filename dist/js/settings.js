@@ -123,7 +123,7 @@ export const settings = {
   };
   
 export const templates = {
-  home: Handlebars.compile(document.querySelector(select.templateOf.home).innerHTML),
+    //home: Handlebars.compile(document.querySelector(select.templateOf.home).innerHTML),
 
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
     

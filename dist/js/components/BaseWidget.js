@@ -1,20 +1,14 @@
 class BaseWidget{
     constructor(wraperElement, initialValue){
         const thisWidget=this;
-
         thisWidget.dom={};
         thisWidget.dom.wrapper=wraperElement;
         thisWidget.correctValue=initialValue;
-
     }
-
     get value(){
         const thisWidget=this;
         return thisWidget.correctValue;
     }
-
-
-
     set value(value) {
         const thisWidget = this;
         const newValue = thisWidget.parseValue(value);
@@ -24,7 +18,6 @@ class BaseWidget{
         }
         thisWidget.renderValue();
       }
-
       setValue(value){
         const thisWidget=this;
         thisWidget.value=value;
@@ -32,11 +25,9 @@ class BaseWidget{
       parseValue(value){
         return parseInt(value)
       }
-  
       isValid(value){
         return  !isNaN(value);    
       }
-
       renderValue(){
         const thisWidget = this;
         thisWidget.dom.wrapper.innerHTML=thisWidget.value;

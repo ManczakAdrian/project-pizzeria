@@ -65,15 +65,12 @@ export const select = {
       edit: '[href="#edit"]',
       remove: '[href="#remove"]',
     },
-    
-  };
-  
-export const classNames = {
+  };  
+  export const classNames = {
     menuProduct: {
       wrapperActive: 'active',
       imageVisible: 'active',
     },
-    
     cart: {
       wrapperActive: 'active',
     },
@@ -88,8 +85,7 @@ export const classNames = {
       active: 'active',
     },
   };
-  
-export const settings = {
+  export const settings = {
     amountWidget: {
       defaultValue: 1,
       defaultMin: 1,
@@ -98,7 +94,6 @@ export const settings = {
     cart: {
       defaultDeliveryFee: 20,
     },
-    
     db: {
       url: '//localhost:3131',
       products: 'products',
@@ -121,13 +116,9 @@ export const settings = {
       tableIdAttribute: 'data-table',
     },  
   };
-  
-export const templates = {
-    //home: Handlebars.compile(document.querySelector(select.templateOf.home).innerHTML),
-
-    menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
-    
+  export const templates = {
+    home: Handlebars.compile(document.querySelector(select.templateOf.home).innerHTML),
+    menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML), 
     cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
-    
     bookingWidget: Handlebars.compile(document.querySelector(select.templateOf.bookingWidget).innerHTML),
   };

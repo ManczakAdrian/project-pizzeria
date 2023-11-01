@@ -12,7 +12,6 @@ class CartProduct {
       thisCartProduct.params = menuProduct.params;
       thisCartProduct.price = menuProduct.price;
       thisCartProduct.priceSingle = menuProduct.priceSingle;
-
       thisCartProduct.getElements(element);
       thisCartProduct.initAmountWidget();
       thisCartProduct.initActions();
@@ -20,9 +19,7 @@ class CartProduct {
     }
     getElements(element) {
       const thisCartProduct = this;
-
       thisCartProduct.dom = {};
-
       thisCartProduct.dom.wrapper = element;
       thisCartProduct.dom.amountWidget = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.amountWidget);
       thisCartProduct.dom.price = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.price);
@@ -31,9 +28,7 @@ class CartProduct {
     }
     initAmountWidget() {
       const thisCartProduct = this;
-
       thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amountWidget);
-
       thisCartProduct.dom.amountWidget.addEventListener('updated', function () {
         thisCartProduct.amount = thisCartProduct.amountWidget.value;
         thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amount;
@@ -63,7 +58,6 @@ class CartProduct {
     }
     getData(){
       const thisCartProduct = this;
-
       const products = {
         id: thisCartProduct.id,
         amount: thisCartProduct.amount,

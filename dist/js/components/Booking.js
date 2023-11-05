@@ -12,17 +12,40 @@ class Booking{
         thisBooking.initWidget();
         thisBooking.getData();
     }
-//to do skończenia 
+ 
     getData(){
         const thisBooking=this;
-        const urls={
-            booking:         settings.db.url,
-            eventsCurrent:   settings.db.url,
-            eventsRepeat:    settings.db.url,
-        
+        const startDateParam=settings.db.dateStartParamKey+'='+ utils.dateToStr(thisBooking.datePicker.minDate);
+        const endDateParam=settings.db.dateEndParamKey+'='+ utils.dateToStr(thisBooking.datePicker.maxDate);
 
+        const params={
+            booking:[
+                startDateParam,
+                endDateParam,
+            ],
+            eventsCurrent:[
+                settings.db.notRepeatParam,
+                startDateParam,
+                endDateParam,
+            ],
+            eventsRepeat:[
+                settings.db.repeatParam,
+                endDateParam,
+            ],
         };
+        console.log('getData params', params);
+
+        const urls={
+            booking:       settings.db.url +'/'+ settings.db.bookings
+                                           +'?'+ params.booking.join('&'),
+            eventsCurrent: settings.db.url +'/'+ settings.db.events
+                                           +'?'+ params.eventsCurrent.join('&'),
+            eventsRepeat:  settings.db.url +'/'+ settings.db.events   
+                                           +'?'+ params.eventsRepeat.join('&'),
+        };
+        console.log('getData urls',urls);
     }
+
     render(element){
         const thisBooking=this;
         thisBooking.dom={};

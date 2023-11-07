@@ -79,12 +79,12 @@ class Booking {
 
         //utils.dateToStr(loopDate)
         const minDate=thisBooking.datePicker.minDate;
-        const maxDate=thisBooking.datePicker.minDate;
+        const maxDate=thisBooking.datePicker.maxDate;
 
         for(let item of eventsRepeat){
             if (item.repeat=='daily'){
                 for(let loopDate=minDate; loopDate<=maxDate;loopDate=utils.addDays(loopDate,1)){
-                    thisBooking.makedBooked(item.date, item.hour, item.duration, item.table);
+                    thisBooking.makedBooked(utils.dateToStr(loopDate), item.hour, item.duration, item.table);
 
                 }     
         }
@@ -138,16 +138,56 @@ class Booking {
             }
         }
     }
+    initTables(event){
+        const thisBooking = this;
+
+        const clickedTable = event.target.closest('.table');
+        let clickedTableId = clickedTable.getAttribute(settings.booking.tableIdAttribute);
+
+        if(clickedTable){
+            if(clickedTable.classList.contains(classNames.booking.tableBooked)) {
+                alert("This table is not available");
+
+            } else if(!thisBooking.selectedTable.includes(clickedTableId)) {
+
+                for(let table of thisBooking.dom.tables){ // is there a selected table already?
+                    if(table.classList.contains(classNames.booking.tableSelected)){ // if yes remove it
+                        table.classList.remove(classNames.booking.tableSelected);
+                        const indexOfTable = thisBooking.selectedTable.indexOf(table);
+                        thisBooking.selectedTable.splice(indexOfTable, 1);    
+                    }
+                }
+
+                thisBooking.selectedTable.push(clickedTableId);
+                clickedTable.classList.add(classNames.booking.tableSelected); 
+
+            } else if (thisBooking.selectedTable.includes(clickedTableId)){
+                const indexOfTable = thisBooking.selectedTable.indexOf(clickedTableId);
+                thisBooking.selectedTable.splice(indexOfTable, 1);
+                clickedTable.classList.remove(classNames.booking.tableSelected);
+            }
+            
+            //console.log(thisBooking.selectedTable);
+        }
+    }
+    resetTables(){
+        const thisBooking = this;
+
+        for(let table of thisBooking.dom.tables){
+            table.classList.remove(classNames.booking.tableSelected);
+            const indexOfTable = thisBooking.selectedTable.indexOf(table);
+            thisBooking.selectedTable.splice(indexOfTable, 1);
+        }
+    }
+
 
     render(element) {
         const thisBooking = this;
         thisBooking.dom = {};
         thisBooking.dom.wrapper = element;
 
-
         const generatedHTML = templates.bookingWidget();
         const generatedDOM = utils.createDOMFromHTML(generatedHTML);
-
         thisBooking.dom.wrapper.appendChild(generatedDOM);
 
         thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
@@ -155,9 +195,49 @@ class Booking {
         thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
         thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
         thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
-        //thisBooking.dom.allTables = thisBooking.dom.wrapper.querySelector(select.booking.allTables);
+        thisBooking.dom.allTables = thisBooking.dom.wrapper.querySelector(select.booking.allTables);
 
+        thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(select.booking.phone);
+        thisBooking.dom.address = thisBooking.dom.wrapper.querySelector(select.booking.address);
+        thisBooking.dom.bookTable = thisBooking.dom.wrapper.querySelector(select.booking.bookTable);
+        thisBooking.dom.form = thisBooking.dom.wrapper.querySelector(select.booking.form);
+        thisBooking.dom.bookingOptions = thisBooking.dom.wrapper.querySelector(select.booking.bookingOptions);
     }
+    sendBooking(){
+        const thisBooking = this;
+        const url = settings.db.url + '/' + settings.db.bookings;
+        const payload = {
+            date: thisBooking.datePicker.value,
+            hour: thisBooking.hourPicker.value,
+            table: thisBooking.selectedTable,
+            duration: thisBooking.hoursAmount.value + 'h',
+            ppl: thisBooking.peopleAmount.value,
+            starters: thisBooking.starters,
+            phone: thisBooking.dom.phone.value,
+            address: thisBooking.dom.address.value
+        }
+
+        thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
+        //console.log('booked', thisBooking.booked);
+        //console.log('payload', payload);
+
+        const options = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+          };
+    
+          fetch(url, options)
+            .then(function(response){
+              return response.json();
+            }).then(function(parsedResponse){
+              console.log('parsedResponse', parsedResponse);
+            });
+    
+    }
+
     initWidget() {
         const thisBooking = this;
         thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount);
@@ -170,17 +250,13 @@ class Booking {
             thisBooking.updateDOM();
         });
 
-        // thisBooking.dom.allTables.addEventListener('click', function (event) {
-        //     thisBooking.initTables(event);
-        // });
+          thisBooking.dom.allTables.addEventListener('click', function (event) {
+              thisBooking.initTables(event);
+          });
 
-        // thisBooking.dom.wrapper.addEventListener('updated', function () {
-        //     thisBooking.resetTables();
-        // });
-
-
-
+         thisBooking.dom.wrapper.addEventListener('updated', function () {
+             thisBooking.resetTables();
+         });
     }
-
 }
 export default Booking;

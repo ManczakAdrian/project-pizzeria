@@ -170,14 +170,16 @@ class Booking {
             //console.log(thisBooking.selectedTable);
         }
     }
+   
+
     resetTables(){
         const thisBooking = this;
 
         for(let table of thisBooking.dom.tables){
             table.classList.remove(classNames.booking.tableSelected);
-            const indexOfTable = thisBooking.selectedTable.indexOf(table);
-            thisBooking.selectedTable.splice(indexOfTable, 1);
         }
+
+        thisBooking.selectedTable = [];
     }
 
 
